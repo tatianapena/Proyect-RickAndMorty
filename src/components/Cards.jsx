@@ -2,7 +2,7 @@
 import Card from './Card'; // CARDS va ser mi componenet PADRE DE CARD
 
 
-export default function Cards({characters}) { // Por destructuring recibimos la propiedad characters
+export default function Cards({characters, onClose}) { // Por destructuring recibimos la propiedad characters
    return ( // //Al lado de map hago destructuring y me traigo todas las propiedades que estan en data por default.
    <div className='container'> 
       {characters.map(({id, name, status, species, gender, origin, image}) => { // el va a recorrer el array characters y me va a devolver cada character.y si abro {} ES PORQ VOY A UTILIZAR UN RETURN.
@@ -15,7 +15,7 @@ export default function Cards({characters}) { // Por destructuring recibimos la 
                gender = {gender}
                origin = {origin.name}
                image = {image}
-               onClose = {()=> alert('Emulamos que se cierra la card')}
+               onClose = {onClose}
             />
          )
       })};
