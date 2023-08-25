@@ -1,15 +1,17 @@
-import './App.css';
 // import Card from './components/Card.jsx';
-import Cards from './components/Cards.jsx';
 // import SearchBar from './components/SearchBar.jsx';
 // import characters from './data.js'; // aqui me traigo con el nombre cualquiera 
 // en este caso characters lo que esta en default, pero tambien me traigo 
 // con destructuring lo que esta en Rick.
-import Nav from './components/Nav.jsx';
-import {useState} from "react";
+
+import './App.css';
+import Cards from './components/Cards.jsx';
+import About from './components/About';
+import Detail from './components/Detail';
+import Nav from './components/Nav';
+import { useState } from "react";
 import axios from 'axios';
-
-
+import { Routes, Route } from 'react-router-dom';
 
 
 function App() {
@@ -41,7 +43,11 @@ function App() {
    return (
       <div className='App'> 
          <Nav onSearch={onSearch} />
-         <Cards characters={characters} onClose={onClose} />
+         <Routes>
+            <Route path='/home' element={<Cards characters={characters} onClose={onClose} />}></Route>
+            <Route path='/about' element={<About/>}></Route>
+            <Route path='/detail/:id' element={<Detail/>}></Route>
+         </Routes>
       </div>
    );
 }
