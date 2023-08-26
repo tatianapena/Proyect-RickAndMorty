@@ -9,26 +9,51 @@ import Cards from './components/Cards.jsx';
 import About from './components/About';
 import Detail from './components/Detail';
 import Nav from './components/Nav';
-import { useState } from "react";
+import Form from './components/Form';
+import { useState, useEffect } from "react";
 import axios from 'axios';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
+
+const email= 'tattmartinez@gmail.com';
+const password= '123abc';
 
 function App() {
 
+   const location = useLocation();
+   const navigate = useNavigate();
    const[characters, setCharacters] = useState([]); // cra un estado local llamando a characters, el cual va iniciar con un arreglo vacío.
-   
-   const onSearch = (id)=> {
-      axios(`https://rickandmortyapi.com/api/character/${id}`)
-      .then(response => response.data)
-      .then((data) => {
+   const[access, setAccess] = useState(false);
 
-         if (data.name) {
-            setCharacters((oldChars) => [...oldChars, data]);
-         } else {
-            window.alert('¡No hay personajes con este ID!');
-         }
-      });
+   const login = (userData) => {
+      if(userData.email === email && userData.password === password){
+         setAccess(true); // si la persona se autentica exitosamente
+         navigate('/home'); // la pagina me envia al home, por eso uso el navigate
+      }
+   }
+
+   useEffect(() => {
+      !access && navigate('/')
+   },[access])
+
+   // primero el callback y luego el array de dependencia
+   //useEffect va esta pendiente de access, esta al principio es false,
+   //pero luego hay un cambio en el login y cambia a true, se va a ejecutar lo que esta aqui adentro 
+   //!access && navigate('/') = !access quiere decir que como el inicia en false al ponerle la negacion
+   // con el ! estoy diciendo q es true y si es true que me envie a: donde la ruta sea ('/')
+  
+
+   function onSearch(id) {
+      axios(`https://rickandmortyapi.com/api/character/${id}`)
+         .then(response => response.data)
+         .then((data) => {
+
+            if (data.name) {
+               setCharacters((oldChars) => [...oldChars, data]);
+            } else {
+               window.alert('¡No hay personajes con este ID!');
+            }
+         });
    }
 // esta funcion es para eliminar la tarjeta, creo una variable y adentro guardo el metodo filter,
 // este metodo le hago lo siguiente que cada character.id es decir revise el id de cada character
@@ -40,13 +65,18 @@ function App() {
       
    }
 
-   return (
+   return (// pathname es distinto a la / tal cosa, muestrame el Nav. esto es para que al abrir la pagina 
+   // lo primero q salga sea el formulario.
       <div className='App'> 
-         <Nav onSearch={onSearch} />
+         {
+            location.pathname !== '/' && <Nav onSearch={onSearch} />
+         }
+          
          <Routes>
-            <Route path='/home' element={<Cards characters={characters} onClose={onClose} />}></Route>
-            <Route path='/about' element={<About/>}></Route>
-            <Route path='/detail/:id' element={<Detail/>}></Route>
+            <Route path='/' element={<Form login={login}/>} />
+            <Route path='/home' element={<Cards characters={characters} onClose={onClose} />} />
+            <Route path='/about' element={<About/>} />
+            <Route path='/detail/:id' element={<Detail/>} />
          </Routes>
       </div>
    );
