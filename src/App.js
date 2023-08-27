@@ -69,7 +69,7 @@ function App() {
    // lo primero q salga sea el formulario.
       <div className='App'> 
          {
-            location.pathname !== '/' && <Nav onSearch={onSearch} />
+            location.pathname !== '/' && <Nav onSearch={onSearch} setAccess={setAccess} />
          }
           
          <Routes>

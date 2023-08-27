@@ -1,16 +1,22 @@
 import SearchBar from "./SearchBar";
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const Nav = ({ onSearch }) => {
+const Nav = ({ onSearch, setAccess }) => {
+
+  const handleLogOut = () => {
+    setAccess(false);
+  }
+
   return(
     <nav>
-      <SearchBar onSearch={onSearch} />
-      <button>
-        <NavLink to= "/about">About</NavLink>
-      </button>
-      <button>
-        <NavLink to= "/home">Home</NavLink>
-      </button>
+      
+      <div>
+        <Link to= "/about">About</Link>
+        <Link to= "/home">Home</Link>
+      </div>
+
+      <button onClick={handleLogOut}>LOG OUT</button>
+        <SearchBar onSearch={onSearch} />
     </nav>
   )
 }
