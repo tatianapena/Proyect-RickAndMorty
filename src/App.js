@@ -4,12 +4,12 @@
 // en este caso characters lo que esta en default, pero tambien me traigo 
 // con destructuring lo que esta en Rick.
 
-import './App.css';
-import Cards from './components/Cards.jsx';
-import About from './components/About';
-import Detail from './components/Detail';
-import Nav from './components/Nav';
-import Form from './components/Form';
+import style from './App.module.css'
+import Cards from './components/Cards/Cards';
+import About from './components/About/About';
+import Detail from './components/Detail/Detail';
+import Nav from './components/Nav/Nav';
+import Form from './components/Form/Form';
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
@@ -42,7 +42,6 @@ function App() {
    //!access && navigate('/') = !access quiere decir que como el inicia en false al ponerle la negacion
    // con el ! estoy diciendo q es true y si es true que me envie a: donde la ruta sea ('/')
   
-
    function onSearch(id) {
       axios(`https://rickandmortyapi.com/api/character/${id}`)
          .then(response => response.data)
@@ -67,7 +66,7 @@ function App() {
 
    return (// pathname es distinto a la / tal cosa, muestrame el Nav. esto es para que al abrir la pagina 
    // lo primero q salga sea el formulario.
-      <div className='App'> 
+      <div className= {style.App}> 
          {
             location.pathname !== '/' && <Nav onSearch={onSearch} setAccess={setAccess} />
          }
@@ -79,7 +78,7 @@ function App() {
             <Route path='/detail/:id' element={<Detail/>} />
          </Routes>
       </div>
-   );
+   )
 }
 
 export default App;

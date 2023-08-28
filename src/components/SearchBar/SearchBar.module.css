@@ -1,0 +1,35 @@
+.searchInput {
+  border: 0px;
+  border-radius: 15px, 0px, 0px, 15px;
+  background-color: white;
+  height: 3em;
+  cursor: pointer;
+  background-color:#e0e0e0;
+}
+
+.searchButton {
+  border: 0px;
+  cursor: pointer;
+  background-color: #ff6347;
+  height: 3em;
+  font-size: 15px;
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+  margin-left: 5px;
+}
+
+.searchButton:hover{
+  background-color: #e74c3c;
+}
+
+.searchButton:active {
+  background-color: #c0392b;
+}
+
+.bar {
+  background-color: #ff6347;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+}
