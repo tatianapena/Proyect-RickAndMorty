@@ -5,10 +5,38 @@
 //CARD ES MI PLANTILLA, MI MOLDE 
 import style from "./Card.module.css";
 import { Link } from 'react-router-dom';
+import { addFav, removeFav} from '../../redux/actions';
+import { connect } from "react-redux";
+import { useState, useEffect } from "react";
 
-const Card = ({id, name, status, species, gender, origin, image, onClose}) => { // recibe todas las propiedades de APP, es decir con props llamo a name, id, gender, etc todas las propiedades que me quiero traer de mi PADRE APP.JS
+const Card = ({id, name, status, species, gender, origin, image, onClose, addFav, removeFav, myFavorites}) => { // recibe todas las propiedades de APP, es decir con props llamo a name, id, gender, etc todas las propiedades que me quiero traer de mi PADRE APP.JS
+   
+   const [isFav, setIsFav] = useState(false);
+
+   const handleFavorite = () => {
+      if(isFav) {
+         setIsFav(false);
+         removeFav(id);
+      }
+      else {
+         setIsFav(true);
+         addFav({id, name, status, species, gender, origin, image, onClose})
+      }
+   }
+
+   useEffect(() => {
+      myFavorites.forEach((fav) => {
+         if (fav.id === id) {
+            setIsFav(true);
+         }
+      });
+   }, [myFavorites]);
+
    return (
       <div className={style.container}>  
+      
+         <button onClick={handleFavorite}>{isFav? "❤️" : "🤍"}</button>
+       
          <button className={style.closeButton} onClick={() => onClose(id)}>X</button>  
          <img src={image} alt="imagen" />
          <Link to={`/detail/${id}`}>
@@ -23,4 +51,20 @@ const Card = ({id, name, status, species, gender, origin, image, onClose}) => { 
    );
 }
 
-export default Card;
+const mapStateToProps = (state) => {
+   return {
+      myFavorites: state.myFavorites
+   }
+}
+
+const mapDispatchToProps = (dispatch) => {
+   return {
+      addFav: (character) => {dispatch(addFav(character)) },
+      removeFav: (id) => { dispatch(removeFav(id)) }
+   }  
+}
+
+export default connect (
+   mapStateToProps,
+   mapDispatchToProps
+)(Card);

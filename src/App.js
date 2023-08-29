@@ -10,6 +10,7 @@ import About from './components/About/About';
 import Detail from './components/Detail/Detail';
 import Nav from './components/Nav/Nav';
 import Form from './components/Form/Form';
+import Favorites from './components/Favorites/Favorites';
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
@@ -41,9 +42,12 @@ function App() {
    //pero luego hay un cambio en el login y cambia a true, se va a ejecutar lo que esta aqui adentro 
    //!access && navigate('/') = !access quiere decir que como el inicia en false al ponerle la negacion
    // con el ! estoy diciendo q es true y si es true que me envie a: donde la ruta sea ('/')
-  
+
+  const URL = 'https://rym2-production.up.railway.app/api/character/';
+  const key = '?key=henrym-tatianapena';
+
    function onSearch(id) {
-      axios(`https://rickandmortyapi.com/api/character/${id}`)
+      axios(`${URL}${id}${key}`)
          .then(response => response.data)
          .then((data) => {
 
@@ -75,6 +79,7 @@ function App() {
             <Route path='/' element={<Form login={login}/>} />
             <Route path='/home' element={<Cards characters={characters} onClose={onClose} />} />
             <Route path='/about' element={<About/>} />
+            <Route path='/favorites' element={<Favorites/>} />
             <Route path='/detail/:id' element={<Detail/>} />
          </Routes>
       </div>
