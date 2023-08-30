@@ -1,25 +1,78 @@
 .container {
   background:#c06c84;  
-  width: fit-content;
-  padding: 1em;
-  border-radius: 10px;
+  height: 20%;
+  padding-left: 1rem;
+  padding-right: 1rem ;
+  border-radius: 2rem;
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-  text-shadow: 6px 4px 7px rgba(0,0,0,0.6);
   display: flex;
   flex-direction: column;
   align-content: center;
 }
 
+.btn {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .closeButton {
   border: 0px;
-  background-color: #c51350;
-  width: fit-content;
-  height: fit-content;
+  background: mediumvioletred;
+  width: 2rem;
   border-radius: 15px;
   transition: 0.5s;
   color: #f8b595;
+  position: absolute;
+  z-index: 1;
+  top: 8rem;
 }
 
 .closeButton:hover{
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+
+.cardDetail {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardDetailInfo{
+  line-height: 1rem;
+}
+
+.photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.img {
+  display: block;
+  margin-top: 1rem;
+  width: 90%;
+  clip-path: polygon(82% 91%, 64% 95%, 46% 97%, 30% 98%, 16% 98%, 0 97%, 0 0, 100% 0, 100% 85%);
+}
+
+.favoriteBtn{
+  background: mediumvioletred;
+  border: 0px;
+  width: fit-content;
+
+}
+
+.nameLink {
+  color: #680747;
+  font-weight: bold;
+  font-size: 13px;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.features {
+  color: #c3195d;
+  font-weight: bold;
+  font-size: 10px;
+  text-align: center;
+  line-height: 10px;
 }

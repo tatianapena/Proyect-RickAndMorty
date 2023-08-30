@@ -34,18 +34,31 @@ const Card = ({id, name, status, species, gender, origin, image, onClose, addFav
 
    return (
       <div className={style.container}>  
-      
-         <button onClick={handleFavorite}>{isFav? "❤️" : "🤍"}</button>
-       
-         <button className={style.closeButton} onClick={() => onClose(id)}>X</button>  
-         <img src={image} alt="imagen" />
-         <Link to={`/detail/${id}`}>
-            <h2>{name}</h2>
-         </Link>    
-         <h2>{species}</h2>
-         <h2>{gender}</h2>
-         <h2>{status}</h2>
-         <h2>{origin}</h2>
+         <div className={style.btn}>
+            <button className={style.closeButton} onClick={() => onClose(id)}>X</button>
+         </div>
+         
+         <div className={style.cardDetail}>
+            
+            <div className={style.photo}>
+               <img className={style.img} src={image} alt="imagen" />
+               <button className={style.favoriteBtn} onClick={handleFavorite}>{isFav? "❤️" : "🤍"}</button>
+            </div>
+           
+            <div className={style.cardDetailInfo}>
+               <Link className={style.nameLink} to={`/detail/${id}`}>
+                  <h2 className={style.name}>{name}</h2>
+               </Link> 
+            <div className={style.features}>
+               <h2 >{species}</h2>
+               <h2 >{gender}</h2>
+               <h2 >{status}</h2>
+               <h2 >{origin}</h2> 
+            </div>   
+               
+             </div>
+            
+         </div>  
          
       </div>
    );
