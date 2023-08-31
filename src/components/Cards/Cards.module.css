@@ -1,5 +1,6 @@
 .cardsContainer {
   display: flex;
+  justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
   background-color: #6c5b7c;
