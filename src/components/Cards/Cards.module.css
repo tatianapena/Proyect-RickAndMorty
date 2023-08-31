@@ -1,11 +1,12 @@
 .cardsContainer {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  flex-wrap: wrap;
   background-color: #6c5b7c;
   padding: 1rem;
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   gap: 1rem;
   width: auto;
+  height: auto;
 }
 
