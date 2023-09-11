@@ -1,18 +1,32 @@
-const http = require('http');
-const {getCharById} = require('./controllers/getCharById');
+const express = require('express');
+const server = express();
+const router = require('./routes/index');
+const morgan = require('morgan');
+const PORT = 3001;
 
 
+//// lo q hace esto, es q la info q me llega en formato json, la pasa a objeto de js para q yo la pueda trabajar.
+server.use(express.json()); 
+server.use(morgan('dev'));
 
-http
-.createServer((req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+server.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header(
+     'Access-Control-Allow-Headers',
+     'Origin, X-Requested-With, Content-Type, Accept'
+  );
+  res.header(
+     'Access-Control-Allow-Methods',
+     'GET, POST, OPTIONS, PUT, DELETE'
+  );
+  next();
+});
 
-  if(req.url.includes('/rickandmorty/character')){
-    const id = req.url.split('/').at(-1);
-
-    getCharById(res, +id);
-  }
+server.use('/rickandmorty', router);
 
 
-})
-.listen(3001);
+server.listen(PORT, () => {
+  console.log(`Server raised in port: ${PORT}`);
+});
+
