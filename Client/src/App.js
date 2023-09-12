@@ -18,6 +18,7 @@ import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 // const email= 'tattmartinez@gmail.com';
 // const password= '123abc';
+const URL = 'http://localhost:3001/rickandmorty/login/';
 
 function App() {
 
@@ -25,17 +26,21 @@ function App() {
    const navigate = useNavigate();
    const[characters, setCharacters] = useState([]); // cra un estado local llamando a characters, el cual va iniciar con un arreglo vacío.
    const[access, setAccess] = useState(false);
+   
 
-   const login = (userData) => {
-      const { email, password } = userData;
-      const URL = 'http://localhost:3001/rickandmorty/login/';
-      axios(URL + `?email=${email}&password=${password}`)
-      .then(response => response.data)
-      .then((data) => {
+   const login = async (userData) => {
+      try {
+         const { email, password } = userData;
+         const { data } = await axios(URL + `?email=${email}&password=${password}`)
          const { access } = data;
+
          setAccess(access);
          access && navigate('/home');
-      });
+    
+      } catch (error) {
+         console.log(error.message);
+      }
+      
    }
 
    useEffect(() => {
@@ -51,17 +56,18 @@ function App() {
 //   const URL = 'https://rym2-production.up.railway.app/api/character/';
 //   const key = '?key=henrym-tatianapena';
 
-   function onSearch(id) {
-      axios(`http://localhost:3001/rickandmorty/character/${id}`)
-         .then(response => response.data)
-         .then((data) => {
+   const onSearch = async (id) => {
+      try {
+         const { data } = await axios(`http://localhost:3001/rickandmorty/character/${id}`)
+         
+         if(data.name) {
+            setCharacters((oldChars) => [...oldChars, data]);
+         };
 
-            if (data.name) {
-               setCharacters((oldChars) => [...oldChars, data]);
-            } else {
-               window.alert('¡No hay personajes con este ID!');
-            }
-         });
+      } catch (error) {
+         alert('¡No hay personajes con este ID!');
+      }
+      
    }
 // esta funcion es para eliminar la tarjeta, creo una variable y adentro guardo el metodo filter,
 // este metodo le hago lo siguiente que cada character.id es decir revise el id de cada character
