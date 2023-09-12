@@ -8,7 +8,7 @@ const Detail = () => {
   const {id} = useParams();
 
   useEffect(() => {
-    axios(`http:localhost:3001/rickandmorty/character/${id}`)
+    axios(`http://localhost:3001/rickandmorty/character/${id}`)
     .then(response => response.data)
     .then((data) => {
        if (data.name) { // le pide a la api infor de la data.name

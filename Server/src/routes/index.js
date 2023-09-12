@@ -3,8 +3,7 @@ const { getCharById } = require('../controllers/getCharById');
 const { postFav, deleteFav } = require('../controllers/handleFavorites')
 
 // aqui le estoy diciendo que de express quiero el Router
-const { Router } = require('express');
-const router = Router()
+const router  = require('express').Router();
 
 
 router.get('/character/:id', (req, res) => {

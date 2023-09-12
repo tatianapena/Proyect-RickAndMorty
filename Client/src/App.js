@@ -16,8 +16,8 @@ import axios from 'axios';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 
-const email= 'tattmartinez@gmail.com';
-const password= '123abc';
+// const email= 'tattmartinez@gmail.com';
+// const password= '123abc';
 
 function App() {
 
@@ -29,7 +29,9 @@ function App() {
    const login = (userData) => {
       const { email, password } = userData;
       const URL = 'http://localhost:3001/rickandmorty/login/';
-      axios(URL + `?email=${email}&password=${password}`).then(({ data }) => {
+      axios(URL + `?email=${email}&password=${password}`)
+      .then(response => response.data)
+      .then((data) => {
          const { access } = data;
          setAccess(access);
          access && navigate('/home');
@@ -66,7 +68,7 @@ function App() {
 // y si ese id es diferente al que yo les paso dentro de la funcion onClose(id)
    const onClose = (id) => {
       const characterFiltered = characters.filter(character => 
-         character.id !== Number(id)) // esto de number(id) es para lo convierta a numero el valor que recibe como id.
+         Number(character.id) !== Number(id)) // esto de number(id) es para lo convierta a numero el valor que recibe como id.
          setCharacters(characterFiltered) // setea tu resultado en tu estado local characters.
       
    }
