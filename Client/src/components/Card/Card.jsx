@@ -3,13 +3,15 @@
 //<h2>{props.satus} 
 //<h2>{props.species}  ..y asi sucesivamente
 //CARD ES MI PLANTILLA, MI MOLDE 
-import style from "./Card.module.css";
+// import style from "./Card.module.css";
 import { Link } from 'react-router-dom';
 import { addFav, removeFav} from '../../redux/actions';
 import { connect } from "react-redux";
 import { useState, useEffect } from "react";
 
-const Card = ({id, name, status, species, gender, origin, image, onClose, addFav, removeFav, myFavorites}) => { // recibe todas las propiedades de APP, es decir con props llamo a name, id, gender, etc todas las propiedades que me quiero traer de mi PADRE APP.JS
+import { Card, CardBody, CloseButton, Image, Heading, Text, Flex  } from '@chakra-ui/react';
+
+const CardComponent = ({id, name, status, species, gender, origin, image, onClose, addFav, removeFav, myFavorites, isFavoritePage}) => { // recibe todas las propiedades de APP, es decir con props llamo a name, id, gender, etc todas las propiedades que me quiero traer de mi PADRE APP.JS
    
    const [isFav, setIsFav] = useState(false);
 
@@ -33,34 +35,22 @@ const Card = ({id, name, status, species, gender, origin, image, onClose, addFav
    }, [myFavorites]);
 
    return (
-      <div className={style.container}>  
-         <div className={style.btn}>
-            <button className={style.closeButton} onClick={() => onClose(id)}>X</button>
-         </div>
-         
-         <div className={style.cardDetail}>
+      <Card borderColor='#4eb75a' borderWidth={2} backgroundColor='#00a5be'>
+         <CardBody>
+            <Flex >
+            <button onClick={handleFavorite}>{isFav? "❤️" : "🤍"}</button>
+             {isFavoritePage ? null: <CloseButton onClick={() => onClose(id)} ml='auto' mb={1} color='white'/>}
+            </Flex>
+            <Image src={image} alt="imagen" mb={4}/>
+            <Heading size='lg' textAlign='center' color='white' >{name}</Heading>
+            <Link  to={`/detail/${id}`}>
+               <Text align='center' color='white' textDecoration='underline' size='md'>
+               See details
+               </Text>
+            </Link> 
             
-            <div className={style.photo}>
-               <img className={style.img} src={image} alt="imagen" />
-               <button className={style.favoriteBtn} onClick={handleFavorite}>{isFav? "❤️" : "🤍"}</button>
-            </div>
-           
-            <div className={style.cardDetailInfo}>
-               <Link className={style.nameLink} to={`/detail/${id}`}>
-                  <h2 className={style.name}>{name}</h2>
-               </Link> 
-            <div className={style.features}>
-               <h2 >{species}</h2>
-               <h2 >{gender}</h2>
-               <h2 >{status}</h2>
-               <h2 >{origin}</h2> 
-            </div>   
-               
-             </div>
-            
-         </div>  
-         
-      </div>
+         </CardBody>
+      </Card>
    );
 }
 
@@ -80,4 +70,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect (
    mapStateToProps,
    mapDispatchToProps
-)(Card);
+)(CardComponent);

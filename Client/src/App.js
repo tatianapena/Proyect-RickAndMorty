@@ -4,7 +4,6 @@
 // en este caso characters lo que esta en default, pero tambien me traigo 
 // con destructuring lo que esta en Rick.
 
-import style from './App.module.css'
 import Cards from './components/Cards/Cards';
 import About from './components/About/About';
 import Detail from './components/Detail/Detail';
@@ -59,11 +58,14 @@ function App() {
    const onSearch = async (id) => {
       try {
          const { data } = await axios(`http://localhost:3001/rickandmorty/character/${id}`)
-         
-         if(data.name) {
-            setCharacters((oldChars) => [...oldChars, data]);
-         };
-
+         const isRegistered = characters.some((character) => character.id === data.id);
+         if(isRegistered) {
+            alert('Este personaje ya ha sido agregado')
+         } else {
+            if(data.name) {
+               setCharacters((oldChars) => [...oldChars, data]);
+            };
+         }
       } catch (error) {
          alert('¡No hay personajes con este ID!');
       }
@@ -81,7 +83,7 @@ function App() {
 
    return (// pathname es distinto a la / tal cosa, muestrame el Nav. esto es para que al abrir la pagina 
    // lo primero q salga sea el formulario.
-      <div className= {style.App}> 
+      <div> 
          {
             location.pathname !== '/' && <Nav onSearch={onSearch} setAccess={setAccess} />
          }

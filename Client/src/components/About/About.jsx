@@ -1,8 +1,9 @@
+import { Text, Box  } from '@chakra-ui/react' 
 
 const About = () => {
   return (
-    <div>
-      <p>
+    <Box style={{ backgroundColor: '#1A202C', minHeight: '100vh'}}>
+      <Text color='white' p={5}>
       Greetings,
       I'm Tatiana, I am Business Administrator with a specialized focus in Colombian Customs Law and International Commerce. With
       extensive hands-on experience in this field.  
@@ -14,8 +15,8 @@ const About = () => {
       of business and technology.
       Best regards,
       Tatiana.
-      </p>
-    </div>
+      </Text>
+    </Box>
   )
 }
 
