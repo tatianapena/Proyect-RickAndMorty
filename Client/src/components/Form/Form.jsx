@@ -41,10 +41,10 @@ const handleSubmit = (event) => { // esto hace que la pag no se recargue
         </CardHeader>
         <CardBody >
         <form onSubmit={handleSubmit} style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-          <Input name= 'email' type="email" value={userData.email} onChange={handleChange} variant='outline' placeholder='Email' style={{margin: '16px 0 16px 0'}} width='300px'/>
+          <Input name= 'email' type="email"  value={userData.email} onChange={handleChange} variant='outline' placeholder='Email' style={{margin: '16px 0 16px 0'}} width='300px'/>
           {errors.email && <p style={{color: 'white'}}>{errors.email}</p>}
 
-          <Input name= 'password' type="text" value={userData.password} onChange={handleChange} variant='outline' placeholder='Password' style={{margin: '0 0 24px 0'}} width='300px'/>
+          <Input name= 'password' type="text"   value={userData.password} onChange={handleChange} variant='outline' placeholder='Password' style={{margin: '0 0 24px 0'}} width='300px'/>
           {errors.password && <p style={{color: 'white'}}>{errors.password}</p>}
 
           <Button type='submit' background='#00a5be' width='300px'>SUBMIT</Button>
