@@ -8,9 +8,9 @@ import logo from '../../assets/logo@2x.png'
 
 const Nav = ({ onSearch, setAccess }) => {
 
-  const handleLogOut = () => {
-    setAccess(false);
-  }
+  // const handleLogOut = () => {
+  //   setAccess(false);
+  // }
 
   return(
     <Box  bg='#1A202C' w='100%' p={8} color='white'>
@@ -22,7 +22,10 @@ const Nav = ({ onSearch, setAccess }) => {
           </Box>
           <Spacer/>
           <ButtonGroup gap='2' style={{alignItems: 'center'}}>
-            <Button onClick={handleLogOut} backgroundColor='#00a5be'>LOG OUT</Button>
+          <Link to="/">
+            <Button backgroundColor='#00a5be'>LOG OUT</Button>
+          </Link>
+            
             <Link to= "/about">About</Link>
             <Link to="/favorites">Favorites</Link>
             <Link to= "/home">Home</Link>

@@ -8,8 +8,9 @@ import Cards from './components/Cards/Cards';
 import About from './components/About/About';
 import Detail from './components/Detail/Detail';
 import Nav from './components/Nav/Nav';
-import Form from './components/Form/Form';
+// import Form from './components/Form/Form';
 import Favorites from './components/Favorites/Favorites';
+import Landing from './components/Landing/Landing';
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
@@ -24,27 +25,27 @@ function App() {
    const location = useLocation();
    const navigate = useNavigate();
    const[characters, setCharacters] = useState([]); // cra un estado local llamando a characters, el cual va iniciar con un arreglo vacío.
-   const[access, setAccess] = useState(false);
+   // const[access, setAccess] = useState(false);
    
 
-   const login = async (userData) => {
-      try {
-         const { email, password } = userData;
-         const { data } = await axios(URL + `?email=${email}&password=${password}`)
-         const { access } = data;
+   // const login = async (userData) => {
+   //    try {
+   //       const { email, password } = userData;
+   //       const { data } = await axios(URL + `?email=${email}&password=${password}`)
+   //       const { access } = data;
 
-         setAccess(access);
-         access && navigate('/home');
+   //       setAccess(access);
+   //       access && navigate('/home');
     
-      } catch (error) {
-         console.log(error.message);
-      }
+   //    } catch (error) {
+   //       console.log(error.message);
+   //    }
       
-   }
+   // }
 
-   useEffect(() => {
-      !access && navigate('/')
-   },[access])
+   // useEffect(() => {
+   //    !access && navigate('/')
+   // },[access])
 
    // primero el callback y luego el array de dependencia
    //useEffect va esta pendiente de access, esta al principio es false,
@@ -85,12 +86,15 @@ function App() {
    // lo primero q salga sea el formulario.
       <div> 
          {
-            location.pathname !== '/' && <Nav onSearch={onSearch} setAccess={setAccess} />
+            location.pathname !== '/' && <Nav onSearch={onSearch} 
+            // setAccess={setAccess} 
+            />
          }
           
          <Routes>
-            <Route path='/' element={<Form login={login}/>} />
-            <Route path='/home' element={<Cards characters={characters} onClose={onClose} />} />
+            {/* <Route path='/' element={<Form login={login}/>} /> */}
+            <Route path='/' element={<Landing/>} />
+            <Route path='/home' element={<Cards characters={characters} onClose={onClose} />} /> 
             <Route path='/about' element={<About/>} />
             <Route path='/favorites' element={<Favorites/>} />
             <Route path='/detail/:id' element={<Detail/>} />
